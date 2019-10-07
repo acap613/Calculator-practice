@@ -75,9 +75,25 @@ class Calculator {
     }  
   //we need a helper funstion to display commas very three numbers
   getDisplayNumber(number) {
-      const floatNumber = parseFloat(number)
-      if (isNaN(floatNumber)) return ''
-      return floatNumber.toLocaleString('en')
+      const stringNumber = number.toString()
+      const integerDigits = parseFloat(stringNumber.split('.')[0])
+      const decimalDigits = stringNumber.split('.')[1]
+      let integerDisplay
+      if (isNaN(integerDigits)) {
+          integerDisplay = ''
+      } 
+      else {
+          integerDisplay = integerDigits.toLocaleString('en', {
+              maximumFractionDigits: 0 
+          })
+
+      }
+      if (decimalDigits != null) {
+          return `${integerDisplay}.${decimalDigits}`
+      }
+      else {
+          return integerDisplay
+      }
     }
   //or maybe we need to update the screen everytime we do something
   //adding a bunch of round about code to help define more complicated code to come
@@ -87,6 +103,9 @@ class Calculator {
      if (this.operation != null) {
           this.previousOperandTextElement.innerText = 
           `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+        }
+        else {
+            this.previousOperandTextElement.innerText = ''
         }
     }
 }
