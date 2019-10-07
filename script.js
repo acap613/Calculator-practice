@@ -67,18 +67,28 @@ class Calculator {
           default:
               return //anytime NONE of the above values get executed, whatever is in the default gets executed
               //in this case RETURN, thus ending the computation
-      }
+            }
       this.currentOperand = computation
       this.operation = undefined
       this.previousOperand = ''
 
-  }
+    }  
+  //we need a helper funstion to display commas very three numbers
+  getDisplayNumber(number) {
+      const floatNumber = parseFloat(number)
+      if (isNaN(floatNumber)) return ''
+      return floatNumber.toLocaleString('en')
+    }
   //or maybe we need to update the screen everytime we do something
+  //adding a bunch of round about code to help define more complicated code to come
   updateDisplay() {
-    this.currentOperandTextElement.innerText = this.currentOperand
-    this.previousOperandTextElement.innerText = this.previousOperand
-
- }
+    this.currentOperandTextElement.innerText = 
+        this.getDisplayNumber(this.currentOperand)
+     if (this.operation != null) {
+          this.previousOperandTextElement.innerText = 
+          `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+        }
+    }
 }
 
 
